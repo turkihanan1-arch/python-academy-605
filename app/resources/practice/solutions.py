@@ -31,7 +31,7 @@ print(sum(nums))
 # 5
 student = {"name": "Ali", "grade": 80}
 student["grade"] = 95
-student["city"] = "Tabuk"
+student["city"] = "Riyadh"
 for key, value in student.items():
     print(key, "->", value)
 

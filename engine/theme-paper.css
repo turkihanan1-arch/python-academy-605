@@ -366,7 +366,7 @@ a { color: inherit; }
 .mo-card p { color: var(--ink-2); font-size: .93rem; }
 .mo-card p b { color: var(--ink); font-weight: 600; }
 
-/* ═══ ٥ فهرست المقرر — المجلدات ═══ */
+/* ═══ ٥ فهرست المنهج — المجلدات ═══ */
 .folder-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.1rem, 2.4vw, 1.8rem) ; margin-top: clamp(1.6rem, 3vw, 2.4rem); }
 .folder-card {
   position: relative; border: 1px solid var(--ink); box-shadow: var(--lift-1);

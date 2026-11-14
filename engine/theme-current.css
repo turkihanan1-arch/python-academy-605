@@ -1,0 +1,466 @@
+/* ============================================================================
+   بايثون أكاديمي · هوية current
+   ----------------------------------------------------------------------------
+   الأرض الأسود #10150e، الحبر #eff9e7، التمييز #c4ff3d، الخطة #7d9a5a.
+   Changa للعربية، Big Shoulders Display للاتينية الكبيرة، Chivo للاتينية الصغيرة.
+   أسطح مسطحة: بلا نصف قطر، بلا ظل، بلا تدرّج. الفصل بين الأرضيات قطع صريح.
+   ========================================================================== */
+
+:root {
+  --sc-canvas: #10150e;
+  --sc-surface: #182012;
+  --sc-ink: #eff9e7;
+  --sc-ink-soft: #a9b99a;
+  --sc-accent: #c4ff3d;
+  --sc-accent-ink: #10150e;
+
+  --black: #10150e;
+  --volt: #c4ff3d;
+  --pale: #eff9e7;
+  --plan: #7d9a5a;
+  --line: #33461e;
+  --line-strong: #4a6428;
+  --soft: #a9b99a;
+  --soft-2: #7f9271;
+
+  --f-display: "Changa", "Segoe UI", system-ui, sans-serif;
+  --f-text: "Changa", "Segoe UI", system-ui, sans-serif;
+  --f-latin: "Chivo", system-ui, sans-serif;
+  --f-wide: "Big Shoulders Display", "Arial Narrow", system-ui, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --sc-font-display: var(--f-display);
+  --sc-font-text: var(--f-text);
+  --sc-font-mono: var(--mono);
+
+  --sc-r-sm: 0;
+  --sc-r-md: 0;
+  --sc-r-lg: 0;
+  --sc-r-pill: 0;
+  --sc-maxw: 78rem;
+  --sc-gutter: clamp(1.25rem, 4.4vw, 4rem);
+  --sc-section: clamp(4.75rem, 10vw, 9.5rem);
+
+  --rule: #33461e;
+  --rule-soft: #26351a;
+  --tint: #182012;
+  --strip: clamp(3.5rem, 5vw, 5rem);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--black); }
+body {
+  margin: 0; background: var(--black); color: var(--sc-ink);
+  font-family: var(--f-text); font-size: 1.0625rem; line-height: 1.85;
+  -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums;
+  overflow-x: clip;
+}
+p, h1, h2, h3, figure, ul, pre { margin: 0; }
+::selection { background: var(--volt); color: var(--black); }
+:focus-visible { outline: 3px solid var(--sc-accent); outline-offset: 3px; border-radius: 0; }
+
+a {
+  color: inherit; text-decoration: underline;
+  text-decoration-thickness: 2px; text-underline-offset: .28em;
+  transition: color 140ms var(--sc-ease-out), background-color 140ms var(--sc-ease-out);
+}
+a:active { transform: translateY(1px); }
+
+.skip {
+  position: fixed; z-index: 100; inset-block-start: 10px; inset-inline-start: 10px;
+  padding: .6rem 1rem; background: var(--volt); color: var(--black);
+  font-weight: 600; text-decoration: none; transform: translateY(-180%);
+  transition: transform 140ms var(--sc-ease-out);
+}
+.skip:focus { transform: none; }
+.mainflow:focus { outline: none; }
+
+.sc-wrap { max-width: var(--sc-maxw); }
+.sc-section { padding-block: var(--sc-section); }
+
+/* ═══ الشريط الجانبي: وحدة الـ605 ═══ */
+.mainflow { padding-inline-start: var(--strip); }
+.foliorail {
+  position: fixed; z-index: 60; inset-block: 0; inset-inline-start: 0;
+  width: var(--strip); display: flex; flex-direction: column; align-items: center;
+  padding: 0 0 12px; background: var(--black); color: var(--pale);
+  border-inline-end: 1px solid var(--line);
+}
+.foliorail .mark {
+  width: 100%; min-height: var(--strip);
+  display: grid; place-items: center;
+  background: var(--volt); color: var(--black);
+  font: 800 1.1rem/1 var(--f-wide); letter-spacing: .04em; text-decoration: none;
+}
+.foliorail .mark:hover { background: var(--pale); }
+.foliorail .stamps {
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  margin-top: 14px;
+}
+.foliorail .stamp {
+  width: 2rem; height: 2rem; padding: 0; border-radius: 0;
+  border: 1px solid var(--line); background: transparent; color: var(--soft);
+  display: grid; place-items: center; cursor: pointer;
+  font: 600 .9rem/1 var(--f-text);
+  transition: background-color 140ms var(--sc-ease-out), color 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out);
+}
+.foliorail .stamp:hover { border-color: var(--volt); color: var(--volt); }
+.foliorail .stamp.on { background: var(--volt); border-color: var(--volt); color: var(--black); }
+.foliorail .rail-label {
+  margin-top: auto; writing-mode: vertical-rl;
+  font: 500 .75rem/1 var(--f-text); letter-spacing: .14em; color: var(--soft-2);
+}
+.foliorail .readdot { font: 600 .69rem/1 var(--f-latin); color: var(--soft-2); }
+
+.mobilelog {
+  display: none; position: fixed; z-index: 60; inset-block-end: 0; inset-inline: 0;
+  min-height: 2.75rem; align-items: center; justify-content: center;
+  padding: 9px 16px; text-align: center;
+  background: var(--black); border-top: 1px solid var(--line);
+  font: 600 .78rem/1.5 var(--f-text); color: var(--soft);
+}
+.mobilelog b { color: var(--volt); font-weight: 600; }
+@media (max-width: 860px) {
+  .mainflow { padding-inline-start: 0; padding-block-end: 2.75rem; }
+  .foliorail { display: none; }
+  .mobilelog { display: flex; }
+}
+
+/* ═══ صفحة العنوان ═══ */
+.titlepage { padding-block: 0; }
+.titlepage .sc-wrap {
+  min-height: 100svh; display: flex; flex-direction: column;
+}
+.folio-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 6px 20px; flex-wrap: wrap;
+  padding-block: 18px; border-bottom: 1px solid var(--line);
+  font-size: .8125rem; color: var(--soft);
+}
+.folio-top span { white-space: nowrap; }
+.folio-top .ar { color: var(--volt); font-weight: 600; }
+
+.title-copy {
+  flex: 1; display: flex; flex-direction: column; justify-content: center;
+  padding-block: clamp(1.5rem, 4vh, 3rem);
+}
+.title-copy h1 {
+  font-family: var(--f-display); font-weight: 800;
+  font-size: clamp(2.85rem, 9vw, 8rem); line-height: 1.14;
+  letter-spacing: -.01em; text-wrap: balance;
+  margin: 0 0 clamp(1rem, 2.5vh, 1.7rem);
+}
+.title-copy h1 em { font-style: normal; color: var(--volt); }
+.title-copy .lede {
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem); line-height: 1.9;
+  color: var(--soft); max-width: 52ch; margin: 0 0 30px;
+}
+.title-copy .lede b { color: var(--pale); font-weight: 600; }
+.title-links {
+  display: flex; align-items: center; gap: clamp(1rem, 3.4vw, 2.75rem);
+  flex-wrap: wrap; font-size: 1rem; font-weight: 600;
+}
+.title-links a, .cta-line a {
+  display: inline-flex; align-items: center; min-height: 2.9rem;
+  padding-inline: .15rem; color: var(--pale);
+  text-decoration-thickness: 2px; text-underline-offset: .3em;
+}
+@media (hover: hover) and (pointer: fine) {
+  .title-links a:hover { background: var(--volt); color: var(--black); text-decoration-color: transparent; }
+}
+
+.folio-facts {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 34px;
+  justify-content: space-between;
+  padding-block: 16px 24px; border-top: 1px solid var(--line);
+  font-size: .82rem; color: var(--soft);
+}
+.folio-facts span { display: inline-flex; align-items: baseline; gap: .3em; }
+.folio-facts b {
+  font-family: var(--f-wide); font-weight: 800; font-size: 1.7rem;
+  line-height: 1; color: var(--volt); letter-spacing: .01em;
+}
+
+/* ═══ رؤوس الفصول ═══ */
+.chap-head {
+  display: flex; align-items: baseline; gap: 8px 16px; flex-wrap: wrap;
+  margin-bottom: clamp(1.6rem, 4vh, 2.6rem);
+}
+.chap-no {
+  display: inline-flex; align-items: center; gap: .55em; flex: none;
+  font-size: .8125rem; font-weight: 600; color: var(--volt);
+}
+.chap-no::before { content: ""; width: .8em; height: .32em; background: currentColor; }
+.chap-head h2 {
+  font-family: var(--f-display); font-weight: 800;
+  font-size: clamp(1.9rem, 4.6vw, 3.6rem); line-height: 1.25;
+  letter-spacing: -.012em; text-wrap: balance; margin: 0;
+}
+
+/* ═══ الفصل الثاني: أرض الفولت، عناوين إنجليزية صاخبة ═══ */
+.en-chapter {
+  background: var(--volt); color: var(--black);
+  --sc-ink: #10150e; --sc-ink-soft: #2d3a1a; --sc-accent: #10150e;
+  --line: #10150e; --rule: #10150e;
+}
+.en-chapter .chap-no,
+.en-chapter .chap-head h2 { color: var(--black); }
+.en-stack { list-style: none; margin: 0; padding: 0; max-width: none; text-align: right; }
+.en-stack li {
+  font-family: var(--f-wide); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(1.8rem, 4.2vw, 3.3rem); line-height: 1.04;
+  letter-spacing: -.005em; color: var(--black);
+  padding-block: .3em; border-bottom: 2px solid var(--black);
+}
+.en-stack li.dim { color: rgba(16, 21, 14, .5); }
+.en-stack li.against { padding-inline-end: 6%; }
+.en-stack li.tight { font-size: clamp(1.5rem, 3.4vw, 2.6rem); letter-spacing: -.015em; }
+.en-note { margin-top: 26px; color: #10150e; font-size: .98rem; max-width: 52ch; }
+
+/* ═══ الفصل الثالث: العربية داخل لوح داكن ═══ */
+.wipe { padding-block: .25em; }
+.ar-proof {
+  background: var(--sc-surface); border: 1px solid var(--line);
+  border-top: 3px solid var(--volt); border-radius: 0;
+  padding: clamp(1.4rem, 3.4vw, 2.6rem);
+}
+.ar-proof h3 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.4;
+  margin: 0 0 16px; color: var(--pale);
+}
+.ar-proof ul {
+  margin: 0; padding-inline-start: 1.15rem; max-width: 66ch;
+  display: grid; gap: 10px; color: var(--soft);
+}
+.ar-proof ul .t { color: var(--pale); font-weight: 600; }
+.ar-code {
+  margin: 20px 0 0; direction: ltr; text-align: left; unicode-bidi: isolate;
+  background: #0a0e08; color: var(--pale); font-family: var(--mono);
+  font-size: .84rem; line-height: 1.7; padding: 16px 18px; max-width: 640px;
+  border: 1px solid var(--line); border-inline-start: 3px solid var(--volt);
+  border-radius: 0; overflow-x: auto;
+}
+.ar-code .k { color: var(--plan); }
+.ar-code .out {
+  display: block; color: var(--volt); margin-top: 8px;
+  padding-top: 8px; border-top: 1px solid var(--line);
+}
+.chip {
+  font-family: var(--f-latin); font-size: .85em; font-weight: 600;
+  background: transparent; color: var(--pale);
+  border: 1px solid var(--line-strong); padding: 1px 6px;
+  border-radius: 0; direction: ltr; unicode-bidi: isolate;
+}
+
+/* ═══ الفصل الرابع: الذروة، أرض حبرية وفهرست مسطّح ═══ */
+/* الذروة تحكم ارتفاعها بنفسها: لا هامش قسم يُزيح المسرح في نهاية السفر */
+#ch-index.sc-section { padding-block: 0; }
+.peak {
+  background: var(--pale); color: var(--black);
+  --sc-ink: #10150e; --sc-ink-soft: #3f4d33; --sc-accent: #10150e;
+  --sc-accent-ink: #eff9e7; --sc-canvas: #eff9e7;
+  --line: #10150e; --rule: #10150e;
+}
+.peak [data-sc-stage] {
+  direction: ltr; background: var(--pale);
+  scrollbar-width: thin; scrollbar-color: #10150e transparent;
+}
+.peak [data-sc-stage]::-webkit-scrollbar { height: 8px; }
+.peak [data-sc-stage]::-webkit-scrollbar-thumb { background: #10150e; }
+.peak [data-sc-stage]::-webkit-scrollbar-track { background: transparent; }
+.peak .stage-head {
+  position: absolute; z-index: 6; direction: rtl;
+  inset-block-start: clamp(2.5rem, 6vh, 4rem);
+  inset-inline-start: var(--sc-gutter);
+  width: min-content; white-space: nowrap;
+}
+.peak .stage-head .chap-no { color: var(--black); }
+.peak .stage-head h2 {
+  font-family: var(--f-display); font-weight: 800;
+  font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.25;
+  margin: 8px 0 0; color: var(--black);
+}
+.pf-rail {
+  display: flex; align-items: stretch; gap: clamp(1.25rem, 2.6vw, 2.5rem);
+  width: max-content; direction: ltr;
+  padding-inline: var(--sc-gutter);
+  padding-block-start: clamp(9rem, 20vh, 12rem);
+}
+.rail-item {
+  width: clamp(17.5rem, 24vw, 21.5rem); flex: none;
+  display: flex; flex-direction: column; direction: rtl;
+}
+.rail-item.rail-title { justify-content: flex-end; }
+.rail-item.rail-title p {
+  color: #3f4d33; font-size: .98rem; line-height: 1.95;
+  max-width: 34ch; padding-bottom: 1rem; border-bottom: 2px solid var(--black);
+}
+.module-card {
+  background: transparent; color: var(--black); border-radius: 0; box-shadow: none;
+  border-top: 3px solid var(--black); border-bottom: 1px solid rgba(16, 21, 14, .3);
+  padding: clamp(1.1rem, 2vw, 1.5rem);
+  display: flex; flex-direction: column; min-height: clamp(22rem, 52vh, 30rem);
+}
+.module-card .m-no {
+  font-size: .8125rem; font-weight: 600; color: #3f4d33;
+  margin-bottom: 12px;
+}
+.module-card h3 {
+  font-family: var(--f-display); font-weight: 800;
+  font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.3;
+  margin: 0 0 4px; min-height: 2.6em; color: var(--black);
+}
+.module-card .m-en {
+  font-family: var(--f-wide); font-weight: 600; text-transform: uppercase;
+  font-size: .95rem; letter-spacing: .06em; color: #3f4d33;
+  margin-bottom: 16px;
+}
+.module-card .m-count {
+  display: flex; align-items: baseline; gap: 8px;
+  padding-block: 10px 12px; margin: 0 0 16px;
+  border-block: 1px solid rgba(16, 21, 14, .28);
+}
+.module-card .m-count b {
+  font-family: var(--f-wide); font-weight: 800; font-size: 2.6rem;
+  line-height: 1; color: var(--black);
+}
+.module-card .m-count span { color: #3f4d33; font-size: .85rem; }
+.module-card p { color: #3f4d33; font-size: .95rem; line-height: 1.9; }
+.module-card .m-seed {
+  margin-top: auto; padding-top: 12px; font-size: .8125rem; color: #3f4d33;
+  border-top: 1px solid rgba(16, 21, 14, .28);
+}
+.module-card .m-seed b {
+  color: var(--black); font-family: var(--f-latin); font-weight: 600; font-size: .8125rem;
+}
+.final-card {
+  background: var(--black); color: var(--pale); box-shadow: none;
+  border-top: 3px solid var(--volt); border-bottom: 0;
+}
+.final-card h3 { color: var(--pale); }
+.final-card .m-no { color: var(--volt); }
+.final-card ul {
+  list-style: none; margin: 16px 0 0; padding: 0;
+  display: grid; gap: 10px; font-size: .92rem; color: var(--soft);
+}
+.final-card ul li { border-top: 1px solid var(--line); padding-top: 10px; }
+.final-card ul li b {
+  color: var(--volt); font-family: var(--f-wide); font-weight: 800; font-size: 1rem;
+}
+
+/* ═══ الفصل الخامس: اللقطات على الأرض السوداء ═══ */
+.run-chapter { min-height: 100svh; display: grid; align-content: center; }
+.run-grid {
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 5vw, 4rem); align-items: center;
+}
+.run-chapter figure { margin: 0; }
+.plates { position: relative; padding-block: 26px; }
+.plate {
+  border: 1px solid var(--line-strong); border-radius: 0; overflow: hidden;
+  background: var(--surface); box-shadow: none; padding: 6px;
+}
+.plate--front { position: relative; z-index: 2; }
+.plate--back {
+  position: absolute; z-index: 1; inset-block-start: -30px; inset-inline-end: -34px;
+  width: 68%; opacity: .9;
+}
+.plate img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--line);
+}
+.plate figcaption {
+  font-size: .8125rem; color: var(--soft); padding: 10px 14px 6px;
+  border-top: 1px solid var(--line); margin-top: 6px;
+}
+.numrow {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2rem; align-items: baseline;
+  margin-top: 28px; padding-top: 18px; border-top: 2px solid var(--pale);
+}
+.num { display: grid; gap: 2px; }
+.num .n {
+  font-family: var(--f-wide); font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1;
+  color: var(--volt); direction: ltr; unicode-bidi: isolate;
+}
+.num .l { color: var(--soft); font-size: .82rem; white-space: nowrap; }
+.run-note { margin-top: 24px; color: var(--soft); font-size: .9rem; max-width: 52ch; }
+.run-note .chip { color: var(--pale); }
+
+/* ═══ الفصل السادس: الكولوفون على أرض الحبر ═══ */
+.colophon {
+  background: var(--pale); color: var(--black);
+  --sc-ink: #10150e; --sc-ink-soft: #3f4d33;
+  --sc-accent: #10150e; --sc-accent-ink: #eff9e7;
+  --line: #10150e; --rule: #10150e;
+}
+.colophon .chap-no,
+.colophon .chap-head h2 { color: var(--black); }
+.colo-plate {
+  max-width: 760px; background: transparent; border: 2px solid var(--black);
+  border-radius: 0; padding: clamp(1.6rem, 4vw, 2.8rem);
+}
+.colo-plate .markrow {
+  display: flex; align-items: center; gap: 14px;
+  padding-bottom: 16px; margin-bottom: 18px;
+  border-bottom: 1px solid rgba(16, 21, 14, .35);
+}
+.colo-plate .mark-ring {
+  width: 52px; height: 52px; flex: none;
+  display: grid; place-items: center;
+  background: var(--black); color: var(--volt);
+  font-family: var(--f-wide); font-weight: 800; font-size: 1.15rem;
+}
+.colo-plate .markrow b { font-size: 1.05rem; font-weight: 700; }
+.colo-plate .markrow span:not(.mark-ring) {
+  color: #3f4d33; font-size: .8125rem; font-family: var(--f-latin);
+}
+.colo-plate p { color: #3f4d33; font-size: .95rem; margin: 0 0 12px; max-width: 62ch; }
+.colo-plate .cta-line {
+  font-family: var(--f-display); font-weight: 700; color: var(--black);
+  font-size: clamp(1.15rem, 2vw, 1.5rem); margin: 18px 0 4px;
+}
+.colo-plate .cta-line a { color: var(--black); }
+@media (hover: hover) and (pointer: fine) {
+  .colo-plate .cta-line a:hover { background: var(--black); color: var(--pale); text-decoration-color: transparent; }
+}
+.readlog-line {
+  margin-top: 18px; padding-top: 14px;
+  border-top: 1px solid rgba(16, 21, 14, .35);
+  font-size: .8125rem; color: #3f4d33;
+}
+
+/* ═══ الحبيبات: طبقة خفيفة، لا تتسلّط على الأرض الفاتحة ═══ */
+.sc-grain { opacity: .03; }
+
+/* ═══ الحركة المخفّضة: الذروة شاشة واحدة، والبطاقات تُسحب ═══ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  #ch-index[data-sc-act] { height: 100svh !important; }
+}
+
+/* ═══ الجوال ═══ */
+@media (max-width: 860px) {
+  .titlepage .sc-wrap { min-height: calc(100svh - 2.75rem); }
+  .title-copy h1 { font-size: clamp(2.5rem, 11vw, 4.2rem); }
+  .folio-top { gap: 6px 14px; font-size: .8125rem; }
+  .folio-facts { gap: 10px 22px; justify-content: flex-start; }
+  .folio-facts b { font-size: 1.45rem; }
+  .numrow { gap: 1.25rem 1.5rem; margin-top: 20px; padding-top: 14px; }
+  .run-note { margin-top: 16px; }
+  .plates { padding-block: 10px; }
+  .plate--back { display: none; }
+  .run-grid { display: block; }
+  .run-grid .plates { margin-block-start: 20px; max-width: 560px; }
+  .peak .stage-head { white-space: normal; width: min(82vw, 24rem); }
+  .pf-rail { padding-block-start: 10.5rem; }
+  .rail-item { width: min(78vw, 19rem); }
+  .rail-item.rail-title { display: none; }
+  .module-card { min-height: 56svh; }
+  .colo-plate .markrow { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+@media (pointer: coarse) {
+  .title-links a, .cta-line a { padding-block: .5em; }
+}
